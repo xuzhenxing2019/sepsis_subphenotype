@@ -7,7 +7,7 @@ seed = 42
 random_state= seed
 
 import pandas as pd
-np.random.seed()
+
 import random
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -19,6 +19,7 @@ import scipy
 import shap
 import math
 import numpy as np, scipy.stats as st
+# np.random.seed()
 from sklearn.linear_model import LogisticRegression,ElasticNet
 # from sklearn.svm import SVC
 from xgboost import XGBClassifier,plot_importance
@@ -52,7 +53,7 @@ pd.set_option('display.max_rows', 1000)
 pd.set_option('display.max_columns', 1000)
 
 def build_classifier_0(X_train,y_train,X_test,y_test,feature_cols,classifier_flag, n_fold,file_path): #X[train], y[train],X[test]
-# change label    so as to the objective case is "1", the objective of change label is to keep  classifier.predict_proba(X_text)[:, 1]   "1" is case
+# change label so as to the objective case is "1", the objective of change label is to keep  classifier.predict_proba(X_text)[:, 1]   "1" is case
     print('---------------------this is classifier_0----------------------')
     print('y_train_number_before_change_label',y_train.value_counts())
     # first replace "0" with 4, then replace 1,2,3, with "0", then replace 4 with "1"
@@ -82,7 +83,7 @@ def build_classifier_0(X_train,y_train,X_test,y_test,feature_cols,classifier_fla
     cc = SMOTETomek(random_state=42) # ,sampling_strategy={1:num_control}
 #     cc = RandomOverSampler(random_state=42)
 #     cc = ClusterCentroids(random_state=42)
-#
+
     X_train_imbalanced, y_train_imbalanced = cc.fit_sample(X_train, y_train)
 
 
