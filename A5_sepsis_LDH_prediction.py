@@ -6,38 +6,28 @@ Prediction
 seed = 42
 random_state= seed
 
-import numpy as np
+import pandas as pd
 np.random.seed()
 import random
-random.seed()
-
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-
 import json
 import os
 import sys
 import pickle as pkl
-
-import pandas as pd
 import scipy
 import shap
 import math
 import numpy as np, scipy.stats as st
-from sklearn.linear_model import LogisticRegression
-from sklearn.linear_model import ElasticNet
+from sklearn.linear_model import LogisticRegression,ElasticNet
 # from sklearn.svm import SVC
-from xgboost import XGBClassifier
-from xgboost import plot_importance
+from xgboost import XGBClassifier,plot_importance
+
 from sklearn.ensemble import RandomForestClassifier
-from imblearn.under_sampling import ClusterCentroids
-from imblearn.over_sampling import SMOTE
-from imblearn.combine import SMOTETomek
-from imblearn.under_sampling import RandomUnderSampler,TomekLinks,NeighbourhoodCleaningRule,NearMiss
-from imblearn.over_sampling import RandomOverSampler
+from imblearn.over_sampling import SMOTE,RandomOverSampler
+from imblearn.combine import SMOTETomek,SMOTEENN
+from imblearn.under_sampling import RandomUnderSampler,TomekLinks,NeighbourhoodCleaningRule,NearMiss,ClusterCentroids,EditedNearestNeighbours
 from imblearn.pipeline import Pipeline
-from imblearn.combine import SMOTEENN
-from imblearn.under_sampling import EditedNearestNeighbours
 
 from sklearn import preprocessing
 from sklearn.preprocessing import OneHotEncoder
@@ -49,12 +39,11 @@ from sklearn.metrics import roc_auc_score, roc_curve,precision_recall_curve,auc,
 
 import matplotlib.pyplot as plt
 # from sklearn.metrics import plot_roc_curve
-from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold,KFold
 from scipy import interp
 # import category_encoders as ce
 # from fancyimpute import KNN
 # from fancyimpute import IterativeImputer
-from sklearn.model_selection import KFold
 from sklearn.tree import DecisionTreeClassifier
 import datetime
 
@@ -196,7 +185,7 @@ def build_classifier_1(X_train,y_train,X_test,y_test,feature_cols,classifier_fla
     # cc = SMOTETomek(random_state=42)  # ,sampling_strategy={1:num_control}
     # cc = SMOTEENN(enn=EditedNearestNeighbours(sampling_strategy='majority'))
 #     cc = RandomOverSampler(random_state=42)
-# #     cc = ClusterCentroids(random_state=42)
+#     cc = ClusterCentroids(random_state=42)
 #
 #     X_train_imbalanced, y_train_imbalanced = cc.fit_sample(X_train, y_train)
 #     X_train, y_train = X_train_imbalanced, y_train_imbalanced
@@ -438,7 +427,7 @@ def build_classifier_3(X_train,y_train,X_test,y_test,feature_cols,classifier_fla
 #     classifier = RandomForestClassifier(random_state =seed,n_estimators = 100,max_depth =8,class_weight ='balanced')
     classifier.fit(X_train_imbalanced, y_train_imbalanced)
 
-    y_proba = classifier.predict_proba(X_test)[:, 1]  #
+    y_proba = classifier.predict_proba(X_test)[:, 1] 
     test_result = y_proba
 
     # print('y_proba',y_proba)
@@ -458,7 +447,7 @@ def build_classifier_3(X_train,y_train,X_test,y_test,feature_cols,classifier_fla
     with open(file_path + classifier_flag + '_cv_fold_' + str(n_fold) + '_classifier.pkl', 'wb') as fid:
         pkl.dump(classifier, fid)
 
-# #  plot feature importance
+##  plot feature importance
     X_data = X_train_imbalanced
     feature_cols = feature_cols
 
@@ -676,7 +665,7 @@ lab_vital_trans = ['ALT', 'AST', 'Bands', 'Bilirubin', 'BUN', 'Creatinine', 'CRP
 
 for fea in lab_vital_trans:
     data_df[fea] = np.log(data_df[fea] + 0.1)
-#
+
 # data_df.to_csv(file_path + 'data_df_transformation.csv',index=False)
 data_df.to_csv(file_path+'data_df.csv',index=False)
 
@@ -725,12 +714,12 @@ for train, test in cv.split(X):
     C_result_proba = np.array([C_0_result,C_1_result,C_2_result,C_3_result])
     # # C_result_proba = np.array([C_1_result, C_2_result])
     C_result_proba /= (np.sum(C_result_proba, axis=0))
-    #
+    
     # # C_result_proba_max it the probality
     # # C_result_proba_max_index is the label with max probality
     C_result_proba_max = np.max(C_result_proba, axis=0)
     C_result_proba_max_index = np.argmax(C_result_proba, axis=0)
-    #
+    
     y_predic = C_result_proba_max_index
 
     y_test_tem = list(y[test])
@@ -769,7 +758,7 @@ acc_total_mean = np.mean(np.array(acc_total))
 acc_total_std = np.std(np.array(acc_total))
 print('acc_total_mean',acc_total_mean)
 print('acc_total_std',acc_total_std)
-#
+
 mean_pre_0 = np.mean(np.array(pre_label_0_total))
 mean_pre_1 = np.mean(np.array(pre_label_1_total))
 mean_pre_2 = np.mean(np.array(pre_label_2_total))
@@ -806,8 +795,6 @@ print('this is the result of label 3:')
 print('mean_pre_3,mean_rec_3', mean_pre_3, mean_rec_3)
 print('std_pre_3,std_rec_3', std_pre_3, std_rec_3)
 
-print('ss')
-
 # compute sem, CI_h, CI_low,...
 type_metrics = ['class_0_precision','class_0_recall','class_1_precision','class_1_recall',
                 'class_2_precision','class_2_recall','class_3_precision','class_3_recall','Total_class_accuracy']
@@ -816,7 +803,8 @@ all_metrics_std = [std_pre_0, std_rec_0, std_pre_1, std_rec_1, std_pre_2, std_re
 for i in range(len(type_metrics)):
     result_metrics = compute_sem_ci(type_metrics[i],all_metrics_mean[i],all_metrics_std[i])
     all_metrics_result_df = all_metrics_result_df.append(result_metrics, ignore_index=True, sort=False)
-
+    
+# save all metrics results
 all_metrics_result_df.to_csv(file_path+'all_metrics_prediction_result.csv',index=False)
 
 
