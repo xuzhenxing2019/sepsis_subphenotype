@@ -69,10 +69,9 @@ Y = data_df['group'] # obtaining label
 
 X_test = X  # X[:10]
 
-# reset for testing
 class_flag = '0' # ['0','1','2','3']
-feature_order = False # True,False
-sample_flag = 10
+feature_order = False # True, False
+sample_flag = 10 
 
 
 start = pd.Timestamp.now()
