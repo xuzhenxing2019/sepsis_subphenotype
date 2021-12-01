@@ -2,7 +2,7 @@
 library(circlize)
 library(readr)
 
-
+# plot Chord Diagram among all clusters
 figure_title_s <- c("Chord_data_df_combined","Chord_data_df_cluster_0","Chord_data_df_cluster_1","Chord_data_df_cluster_2","Chord_data_df_cluster_3") # c("cluster_0","cluster_1","cluster_2","cluster_3") -> c("DI","RI","DW","RW"),
 
 for (i in figure_title_s) {
@@ -12,6 +12,7 @@ for (i in figure_title_s) {
   SepsisData<-read.csv(paste0("/Users/xuzhenxing/Documents/eICU_AKI_Sepsis/ChordDiagrams/comorbidity/",figure_title,".csv"),row.names= 1)
 
 # plot ChordDiagram in terms of Inflammatory,Hepatic,Cardiovascular,Renal,Hematologic,Pulmonary,Neurologic,Comorbidity
+  
   # for all clusters
   if (figure_title == "Chord_data_df_combined"){
     grid_col <-  c(DI = "purple3", RI = "darkgreen", DW = "blue", RW = "red",
