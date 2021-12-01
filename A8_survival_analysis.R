@@ -1,6 +1,7 @@
+# Fit survival curves
+
 #install.packages("survminer")
 library("survminer")
-# Fit survival curves
 require("survival")
 
 #loading data
