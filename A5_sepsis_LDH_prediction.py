@@ -58,8 +58,6 @@ from sklearn.model_selection import KFold
 from sklearn.tree import DecisionTreeClassifier
 import datetime
 
-import pickle
-
 pd.set_option('display.width', 1000)
 pd.set_option('display.max_rows', 1000)
 pd.set_option('display.max_columns', 1000)
