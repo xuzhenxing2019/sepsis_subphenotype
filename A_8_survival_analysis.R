@@ -1,5 +1,4 @@
 #install.packages("survminer")
-# Loading
 library("survminer")
 # Fit survival curves
 require("survival")
@@ -55,7 +54,7 @@ ggpar_plot<-ggpar(
 ggpar_plot
 
 # save survival figure
-ggsave(paste0("/Users/xuzhenxing/Documents/Sepsis/sepsis_1225/data/survival_3_26_MIMIC/","MIMIC_survival_analysis_NumCluster_4_risk_table.pdf"), surp$plot,width = 15, height = 30)
+ggsave(paste0("/Users/xuzhenxing/Documents/Sepsis/","survival_analysis.pdf"), surp$plot,width = 15, height = 30)
 
 
 
