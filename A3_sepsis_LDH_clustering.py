@@ -9,7 +9,7 @@ data_folder = '/Users/xuzhenxing/Documents/Sepsis/sepsis_manuscript/LDH/result/'
 
 result_fold = data_folder
 
-num_cluster = 4 #
+num_cluster = 4 # number of clusters
 
 linkage = 'complete'
 
@@ -46,6 +46,7 @@ for i in range(len(labels_list)):
 print len(cluster_id_0),len(cluster_id_1),len(cluster_id_2),len(cluster_id_3)
 
 # save clustering results
+
 with open(result_fold+'cluster_id_0.pkl', 'wb') as f_0:
     pickle.dump(cluster_id_0, f_0)
 with open(result_fold+'cluster_id_1.pkl', 'wb') as f_1:
@@ -55,3 +56,8 @@ with open(result_fold+'cluster_id_2.pkl', 'wb') as f_2:
 with open(result_fold+'cluster_id_3.pkl', 'wb') as f_3:
     pickle.dump(cluster_id_3, f_3)
 
+
+    
+    
+    
+    
