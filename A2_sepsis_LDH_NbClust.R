@@ -12,21 +12,17 @@ set.seed(1)
 
 
 # load data
-#x<-readr::read_csv(paste0("/Users/xuzhenxing/Documents/Sepsis/sepsis_1225/NbClust/","data.csv"))
+x<-readr::read_csv(paste0("/Users/xuzhenxing/Documents/Sepsis/sepsis_1225/NbClust/","data.csv"))
 #diss_matrix <- read.csv("/Users/xuzhenxing/Documents/Sepsis/sepsis_1225/NbClust/dis_matrix.csv", header=FALSE)
 #diss_matrix<-as.dist(diss_matrix)
 
-x<-readr::read_csv(paste0("/Users/xuzhenxing/Documents/Sepsis/sepsis_1225/NbClust/","CEDAR_data.csv"))
-diss_matrix <- read.csv("/Users/xuzhenxing/Documents/Sepsis/sepsis_1225/NbClust/CEDAR_dis_matrix.csv", header=FALSE)
-diss_matrix<-as.dist(diss_matrix)
 
 index_s <- c("mcclain") # "gap", "duda","pseudot2", "rubin", "kl", "ch", "hartigan", "ccc", "scott", "marriot", "trcovw", "tracew", "friedman",
 # "cindex", "db", "silhouette","beale", "ratkowsky", "ball", "ptbiserial",
-# "frey", "mcclain", "dunn", "sdindex", "sdbw"
-# ) #   
+# "frey", "mcclain", "dunn", "sdindex", "sdbw") 
 
-method_s <- c( "complete") # 3,4,5,6,7,8, # "ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median", "centroid", "kmeans"
-distance_s<- c("euclidean") # ,"manhattan", "maximum", "canberra", "binary", "minkowski" 
+method_s <- c( "complete") # "ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median", "centroid", "kmeans"
+distance_s<- c("euclidean") # "manhattan", "maximum", "canberra", "binary", "minkowski" 
 
 for (k_index in index_s) {
   cat("index----------------------------------------- :",k_index,"\n")
