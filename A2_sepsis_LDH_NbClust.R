@@ -35,12 +35,12 @@ for (k_index in index_s) {
     # print(i)
     cat("method----------------------------------------- :",i,"\n")
     method = i
-    # res<-NbClust(x, diss=diss_matrix, distance = NULL, min.nc=2, max.nc=6, method = method, index = "gap")   # gap, gamma,tau,gplus
+    # res<-NbClust(x, diss=diss_matrix, distance = NULL, min.nc=2, max.nc=6, method = method, index = k_index)   
     # print(res$Best.nc)
     for (j in distance_s) {
       cat("distance----------------------------------------- :",j,"\n")
       res<-NbClust(x, diss=NULL, distance = j, min.nc=2, max.nc=6, method = method, index = k_index)   
-      # euclidean, maximum, canberra, binary, minkowski
+      # res<-NbClust(x, diss=diss_matrix, distance = NULL, min.nc=2, max.nc=6, method = method, index = k_index) 
       #res$All.index
       print(res$Best.nc)
       #res$Best.partition
