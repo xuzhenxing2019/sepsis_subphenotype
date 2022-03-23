@@ -57,7 +57,4 @@ with open(result_fold+'cluster_id_3.pkl', 'wb') as f_3:
     pickle.dump(cluster_id_3, f_3)
 
 
-    
-    
-    
-    
+  
