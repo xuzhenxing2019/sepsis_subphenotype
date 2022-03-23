@@ -57,5 +57,3 @@ ggpar_plot
 # save survival figure
 ggsave(paste0("/Users/xuzhenxing/Documents/Sepsis/","survival_analysis.pdf"), surp$plot,width = 15, height = 30)
 
-
-
