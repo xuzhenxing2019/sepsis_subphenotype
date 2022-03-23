@@ -49,6 +49,3 @@ ns_plot.savefig(result_fold+'/'+'clustermap_'+ data_type +".png", dpi = 600)
 
 
 
-
-
-
